@@ -87,6 +87,12 @@
 #define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
+// Plurk - http://www.plurk.com/API/2
+#define SHKPlurkConsumerKey		@""
+#define SHKPlurkSecret			@""
+#define SHKPlurkCallbackUrl		@""
+
+
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""
 #define SHKBitLyKey					@""
