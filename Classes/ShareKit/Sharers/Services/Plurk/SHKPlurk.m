@@ -152,7 +152,7 @@
 - (void)shortenURL
 {
 	if (![SHK connected]) {
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], item.title] forKey:@"status"];
 		[self showPlurkForm];
 		return;
 	}
@@ -187,7 +187,7 @@
                        cancelButtonTitle:SHKLocalizedString(@"Continue")
                        otherButtonTitles:nil] autorelease] show];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+        [item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], item.text ? item.text : item.title] forKey:@"status"];
 	}
 	
 	else
@@ -196,7 +196,7 @@
 		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
 			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+        [item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", result, item.text ? item.text : item.title] forKey:@"status"];
 	}
 	
 	[self showPlurkForm];
