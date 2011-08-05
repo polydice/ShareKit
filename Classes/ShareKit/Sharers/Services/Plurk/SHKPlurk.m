@@ -338,7 +338,7 @@
 	[oRequest setHTTPMethod:@"POST"];
 	
 	OARequestParameter *qualifierParam = [[OARequestParameter alloc] initWithName:@"qualifier"
-                                                                          value:SHKLocalizedString(@"shares")];
+                                                                          value:@"shares"];
 	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"content"
                                                                        value:[item customValueForKey:@"status"]];
 	NSArray *params = [NSArray arrayWithObjects:qualifierParam, statusParam, nil];
