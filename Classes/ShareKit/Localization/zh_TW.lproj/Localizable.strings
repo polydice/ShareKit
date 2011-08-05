@@ -93,4 +93,7 @@
 
 "Save to Photo Album" = "儲存到相簿";
 
+"Send to Plurk" = "發送到噗浪";
+"Plurk posts can only be 140 characters in length." = "噗浪訊息不能超過 140 個字。";
+"Image + " = "圖片 + ";
 "shares" = "分享";

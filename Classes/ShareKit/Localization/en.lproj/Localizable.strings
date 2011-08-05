@@ -90,4 +90,7 @@
 "Access Error" = "Access Error";
 "There was an error while sharing" = "There was an error while sharing";
 
+"Send to Plurk" = "Send to Plurk";
+"Plurk posts can only be 140 characters in length." = "Plurk posts can only be 140 characters in length.";
+"Image + " = "Image + ";
 "shares" = "shares";
