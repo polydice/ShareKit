@@ -397,7 +397,8 @@ BOOL FBIsDeviceIPad() {
   NSURL* url = request.URL;
 
   if ([url.scheme isEqualToString:@"fbconnect"]) {
-    if ([[url.resourceSpecifier substringToIndex:8] isEqualToString:@"//cancel"]) {
+    NSLog([NSString stringWithFormat:@"url.resourceSpecifier %@", url.resourceSpecifier], nil);
+    if ([[url.resourceSpecifier substringToIndex:8] isEqualToString:@"//cancel"] || [[url.resourceSpecifier substringToIndex:10] isEqualToString:@"//success#"]) {
       NSString * errorCode = [self getStringFromUrl:[url absoluteString] needle:@"error_code="];
       NSString * errorStr = [self getStringFromUrl:[url absoluteString] needle:@"error_msg="];
       if (errorCode) {
@@ -545,7 +546,7 @@ BOOL FBIsDeviceIPad() {
   [_loadingURL release];
   _loadingURL = [[self generateURL:url params:getParams] retain];
   NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:_loadingURL];
-
+  TTDPRINT(@"loading URL %@", _loadingURL);
   [_webView loadRequest:request];
 }
 

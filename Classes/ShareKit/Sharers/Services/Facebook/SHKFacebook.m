@@ -242,6 +242,10 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 #pragma mark -
 #pragma mark FBDialogDelegate methods
 
+- (void)dialogDidNotCompleteWithUrl:(NSURL *)url {
+  [self sendDidCancel];
+}
+
 - (void)dialogDidComplete:(FBDialog *)dialog
 {
   [self sendDidFinish];  
