@@ -49,8 +49,17 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 {
   static Facebook *facebook=nil;
   @synchronized([SHKFacebook class]) {
-    if (! facebook)
-      facebook = [[Facebook alloc] initWithAppId:SHKFacebookAppID];
+    if (! facebook) {
+#ifdef SHKFacebookLocalAppID
+      facebook = [[Facebook alloc] initWithAppId:SHKFacebookAppID urlSchemeSuffix:SHKFacebookLocalAppID andDelegate:[[self alloc] init]];
+#else
+      facebook = [[Facebook alloc] initWithAppId:SHKFacebookAppID andDelegate:[[self alloc] init]];
+#endif
+      
+      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+      facebook.accessToken = [defaults stringForKey:kSHKFacebookAccessTokenKey];
+      facebook.expirationDate = [defaults objectForKey:kSHKFacebookExpiryDateKey];
+    }
   }
   return facebook;
 }
@@ -149,11 +158,6 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 - (BOOL)isAuthorized
 {	  
   Facebook *facebook = [SHKFacebook facebook];
-  if ([facebook isSessionValid]) return YES;
-  
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  facebook.accessToken = [defaults stringForKey:kSHKFacebookAccessTokenKey];
-  facebook.expirationDate = [defaults objectForKey:kSHKFacebookExpiryDateKey];
   return [facebook isSessionValid];
 }
 
@@ -165,16 +169,8 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
     [itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
   }
   [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
-#ifdef SHKFacebookLocalAppID
   [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-                                     @"offline_access", nil]
-                           delegate:self
-                         localAppId:SHKFacebookLocalAppID];
-#else
-  [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-                                     @"offline_access", nil]
-                           delegate:self];
-#endif
+                                     @"offline_access", nil]];
 }
 
 - (void)authFinished:(SHKRequest *)req
