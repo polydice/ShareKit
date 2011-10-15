@@ -179,10 +179,11 @@ BOOL SHKinit;
 	if (currentView != nil)
 	{
 		// Dismiss the modal view
-		if ([currentView parentViewController] != nil)
+		UIViewController *presentingController = [currentView respondsToSelector:@selector(presentingViewController)] ? [currentView presentingViewController] : [currentView parentViewController];
+		if (presentingController != nil)
 		{
 			self.isDismissingView = YES;
-			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+			[presentingController dismissModalViewControllerAnimated:animated];
 		}
 		
 		else
