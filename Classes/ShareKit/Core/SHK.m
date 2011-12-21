@@ -218,13 +218,21 @@ BOOL SHKinit;
 	}
 }
 										   
-- (UIViewController *)getTopViewController
-{
+
+- (UIViewController *)getTopViewController {
 	UIViewController *topViewController = rootViewController;
-	while (topViewController.modalViewController != nil)
-		topViewController = topViewController.modalViewController;
+  if ([rootViewController respondsToSelector:@selector(presentedViewController)]) {
+    while (topViewController.presentedViewController != nil)
+      topViewController = topViewController.presentedViewController;
+  } else {
+    while (topViewController.modalViewController != nil)
+      topViewController = topViewController.modalViewController;
+  }
+  
 	return topViewController;
 }
+
+
 			
 + (UIBarStyle)barStyle
 {
